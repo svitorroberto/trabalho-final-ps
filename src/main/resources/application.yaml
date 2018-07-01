@@ -1,0 +1,9 @@
+server:
+  port: 8083
+spring:
+  session:
+    store-type: jdbc
+  jersey:
+    application-path: /api
+  server:
+      servlet-path: /
