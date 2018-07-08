@@ -12,8 +12,7 @@ gradlew bootRun
 # Linux:
 ./gradlew bootRun
 ```
-2. 
-Por padrão a aplicação irá requisitar um usuário em um popup, a senha do usuário é escrita na saída da aplicação (no caso no terminal onde os comandos foram executados), o nome do usário é `user`. A senha estará presente como no exemplo:
+3. Por padrão a aplicação irá requisitar um usuário em um popup, a senha do usuário é escrita na saída da aplicação (no caso no terminal onde os comandos foram executados), o nome do usário é `user`. A senha estará presente como no exemplo:
 ```
 Using default security password: [senha bem grande aqui]
 ```
