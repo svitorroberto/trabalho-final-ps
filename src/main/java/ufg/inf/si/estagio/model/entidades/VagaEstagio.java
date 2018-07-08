@@ -11,6 +11,8 @@ public class VagaEstagio {
     @GeneratedValue
     private Long id;
 
+    private String descricao;
+
     private String concedente;
 
     private String areaAtuacao;
@@ -32,6 +34,14 @@ public class VagaEstagio {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getConcedente() {
@@ -88,5 +98,13 @@ public class VagaEstagio {
 
     public void setPreRequisitos(String preRequisitos) {
         this.preRequisitos = preRequisitos;
+    }
+
+    @Override
+    public String toString() {
+        return "Evento{" +
+            "id=" + id +
+            ", descricao='" + descricao + '\'' +
+            '}';
     }
 }

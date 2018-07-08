@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+Template Name: Preevent
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html>
+<head>
+  <title>UFG</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+  <script src="../layout/scripts/jquery-3.2.1.js"></script>
+
+  <script>
+    $(() => {
+      $('#form-add-vaga').on('submit', (event) => {
+        event.preventDefault();
+
+        const vagaEstagio = {
+          descricao          : $('#vaga-descricao').val(),
+          concedente         : $('#vaga-concedente').val(),
+          areaAtuacao        : $('#vaga-areaAtuacao').val(),
+          curso              : $('#vaga-curso').val(),
+          cargaHoraria       : $('#vaga-cargaHoraria').val(),
+          tipoRemuneracao    : $('#vaga-tipoRemuneracao').val(),
+          localEnvioCurriculo: $('#vaga-localEnvioCurriculo').val(),
+          preRequisitos      : $('#vaga-preRequisitos').val()
+        };
+
+        $.post({
+          url        : '../api/vagasEstagio',
+          data       : JSON.stringify(vagaEstagio),
+          contentType: 'application/json; charset=UTF-8',
+        }).then(() => {
+          window.alert('Vaga de estágio criada com sucesso!');
+          window.location.replace('../index.html');
+        });
+      });
+    });
+  </script>
+
+</head>
+<body id="top">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- Top Background Image Wrapper -->
+<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');">
+  <!-- ################################################################################################ -->
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <!-- ################################################################################################ -->
+      <div id="logo" class="fl_left">
+        <h1><a href="index.html">Centro de Estágios - UFG</a></h1>
+      </div>
+      <!-- ################################################################################################ -->
+      <nav id="mainav" class="fl_right">
+        <ul class="clear">
+          <li><a href="../index.html">Início</a></li>
+          <li class="active"><a href="nova-vaga-estagio.html">Cadastrar Vaga</a></li>
+          <li><a href="listar-vaga-estagio.html">Visualizar Vagas</a></li>
+        </ul>
+      </nav>
+      <!-- ################################################################################################ -->
+    </header>
+  </div>
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <section id="breadcrumb" class="hoc clear">
+    <!-- ################################################################################################ -->
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Administrador</a></li>
+      <li><a href="#">Nova vaga de estágio</a></li>
+    </ul>
+    <!-- ################################################################################################ -->
+    <h6 class="heading">NOVA VAGA DE ESTÁGIO</h6>
+    <!-- ################################################################################################ -->
+  </section>
+  <!-- ################################################################################################ -->
+</div>
+<!-- End Top Background Image Wrapper -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <main class="hoc container clear">
+    <!-- main body -->
+    <!-- ################################################################################################ -->
+    <div class="content">
+      <div id="comments">
+        <h2>Nova Vaga</h2>
+        <form id="form-add-vaga">
+          <div class="one_third first">
+            <label for="vaga-descricao">Descrição <span>*</span></label>
+            <input type="text" name="name" id="vaga-descricao" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-concedente">Concedente <span>*</span></label>
+            <input type="text" name="name" id="vaga-concedente" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-areaAtuacao">Área de atuação <span>*</span></label>
+            <input type="text" name="name" id="vaga-areaAtuacao" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-curso">Curso <span>*</span></label>
+            <input type="text" name="name" id="vaga-curso" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-cargaHoraria">Carga horária(h) <span>*</span></label>
+            <input type="number" name="name" id="vaga-cargaHoraria" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-tipoRemuneracao">Tipo remuneração <span>*</span></label>
+            <input type="text" name="name" id="vaga-tipoRemuneracao" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-localEnvioCurriculo">Local de envio do currículo <span>*</span></label>
+            <input type="text" name="name" id="vaga-localEnvioCurriculo" value="" size="22" required>
+          </div>
+          <div class="block clear">
+            <label for="vaga-preRequisitos">Pré-requisitos</label>
+            <textarea name="comment" id="vaga-preRequisitos" cols="25" rows="10"></textarea>
+          </div>
+          <div>
+            <input type="submit" name="submit" value="Cadastrar">
+            &nbsp;
+            <input type="reset" name="reset" value="Limpar">
+          </div>
+        </form>
+      </div>
+      <!-- ################################################################################################ -->
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear">
+    <!-- ################################################################################################ -->
+    <p class="fl_left">Copyright &copy; 2016 - All Rights Reserved - <a href="#">Domain Name</a></p>
+    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    <!-- ################################################################################################ -->
+  </div>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="../layout/scripts/jquery.min.js"></script>
+<script src="../layout/scripts/jquery.backtotop.js"></script>
+<script src="../layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>

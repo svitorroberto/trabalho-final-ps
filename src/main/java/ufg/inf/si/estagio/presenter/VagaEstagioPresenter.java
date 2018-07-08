@@ -9,6 +9,7 @@ import ufg.inf.si.estagio.model.entidades.VagaEstagio;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +64,24 @@ public class VagaEstagioPresenter {
 
         return eventoSalvo;
     }
-    
+
+    public VagaEstagio consultarPorId(final Long id) {
+        final User usuarioAtual = getUser();
+        logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
+            "iniciou uma consulta de Vagas de Estagio com identificador: " + id);
+
+        if (!vagaEstagioDao.exists(id)) {
+            logger.error("Vaga de Estagio com identificador: " + id + ", pesquisado pelo " +
+                "usuário: `" + usuarioAtual.getUsername() + "` não foi encontrado");
+
+            throw new NotFoundException("Vaga de Estagio com identificador `" + id + "`, não foi encontrado");
+        }
+
+        final VagaEstagio eventoEncontrado = vagaEstagioDao.findOne(id);
+
+        logger.info("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
+            "concluiu com sucesso uma consulta da Vaga de Estagio com identificador: " + id);
+
+        return eventoEncontrado;
+    }
 }
