@@ -18,13 +18,42 @@ Licence URI: http://www.os-templates.com/template-terms
     $(() => {
 
       $.getJSON('../api/vagasEstagio').then((vagasEstagio) => {
-        const fullCalendarEvents = vagasEstagio.map(vagaEstagio => ({
-          apiId       : vagaEstagio.id,
-          title       : vagaEstagio.descricao,
-          curso       : vagaEstagio.curso,
-          cargaHoraria: vagaEstagio.cargaHoraria,
+        const vagasDeEstagio = vagasEstagio.map(vagaEstagio => ({
+          id           : vagaEstagio.id,
+          descricao    : vagaEstagio.descricao,
+          curso        : vagaEstagio.curso,
+          preRequisitos: vagaEstagio.preRequisitos,
         }));
 
+        let cList = $('div.mylist')
+        $.each(vagasDeEstagio, function (i) {
+          const linha = $('<div/>')
+            .addClass('group btmspace-50 demo')
+            .appendTo(cList);
+          $('<div/>')
+            .addClass('hidden')
+            .text(vagasDeEstagio[i].id)
+            .appendTo(linha);
+          $('<div/>')
+            .addClass('one_quarter first')
+            .attr('role', 'menuitem')
+            .text(vagasDeEstagio[i].descricao)
+            .appendTo(linha);
+          $('<div/>')
+            .addClass('one_quarter')
+            .attr('role', 'menuitem')
+            .text(vagasDeEstagio[i].curso)
+            .appendTo(linha);
+          $('<div/>')
+            .addClass('two_quarter')
+            .attr('role', 'menuitem')
+            .text(vagasDeEstagio[i].preRequisitos)
+            .appendTo(linha);
+        });
+      });
+
+      $('.group').bind('click', function () {
+        alert('User clicked on "foo."');
       });
     });
   </script>
@@ -80,6 +109,14 @@ Licence URI: http://www.os-templates.com/template-terms
     <div class="content">
       <div id="comments">
         <h2>Vagas</h2>
+        <div class="group btmspace-50 demo">
+          <div class="one_quarter first">Descrição</div>
+          <div class="one_quarter">Curso</div>
+          <div class="two_quarter">Pré-requisitos</div>
+        </div>
+        <!-- ################################################################################################ -->
+        <div class="mylist">
+        </div>
       </div>
       <!-- ################################################################################################ -->
     </div>
