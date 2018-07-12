@@ -34,9 +34,9 @@ Licence URI: http://www.os-templates.com/template-terms
           url        : '../api/vagasEstagio',
           data       : JSON.stringify(vagaEstagio),
           contentType: 'application/json; charset=UTF-8',
-        }).then(() => {
+        }).then((vagaEstagio) => {
           window.alert('Vaga de estágio criada com sucesso!');
-          window.location.replace('../index.html');
+          window.location.replace(`detalhe-vaga-estagio.html?id=${Number(vagaEstagio.id)}`);
         });
       });
     });
