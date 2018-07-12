@@ -25,14 +25,14 @@ Licence URI: http://www.os-templates.com/template-terms
      }
     $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((vagaEstagio) => {
       $(() => {
-        $('#vaga-descricao').text(vagaEstagio.descricao);
-        $('#vaga-id').text(vagaEstagio.id);
-        $('#vaga-concedente').text(vagaEstagio.concedente);
-        $('#vaga-areaAtuacao').text(vagaEstagio.areaAtuacao);
-        $('#vaga-curso').text(vagaEstagio.curso);
-        $('#vaga-cargaHoraria').text(vagaEstagio.cargaHoraria);
-        $('#vaga-tipoRemuneracao').text(vagaEstagio.tipoRemuneracao);
-        $('#vaga-localEnvioCurriculo').text(vagaEstagio.localEnvioCurriculo);
+        $('#vaga-descricao').val(vagaEstagio.descricao);
+        $('#vaga-id').val(vagaEstagio.id);
+        $('#vaga-concedente').val(vagaEstagio.concedente);
+        $('#vaga-areaAtuacao').val(vagaEstagio.areaAtuacao);
+        $('#vaga-curso').val(vagaEstagio.curso);
+        $('#vaga-cargaHoraria').val(vagaEstagio.cargaHoraria);
+        $('#vaga-tipoRemuneracao').val(vagaEstagio.tipoRemuneracao);
+        $('#vaga-localEnvioCurriculo').val(vagaEstagio.localEnvioCurriculo);
         $('#vaga-preRequisitos').text(vagaEstagio.preRequisitos)
       });
     }).catch((err) => {
@@ -58,13 +58,13 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
         $.post({
-          url        : '../api/vagasEstagio',
+          url        : '../api/vagasEstagio/editar',
           data       : JSON.stringify(vagaEstagio),
           contentType: 'application/json; charset=UTF-8',
         }).then(() => {
-          window.alert('Vaga de estágio criada com sucesso!');
-          window.location.replace('../index.html');
-        });
+          window.alert('Vaga de estágio alterada com sucesso!');
+        window.location.replace(`detalhe-vaga-estagio.html?id=${Number(vagaEstagio.id)}`);
+    });
       });
     });
   </script>
@@ -122,6 +122,9 @@ Licence URI: http://www.os-templates.com/template-terms
       <div id="comments">
         <h2>Nova Vaga</h2>
         <form id="form-add-vaga">
+          <div class="hidden">
+            <input type="text" name="name" id="vaga-id" value="" size="22" required>
+          </div>
           <div class="one_third first">
             <label for="vaga-descricao">Descrição <span>*</span></label>
             <input type="text" name="name" id="vaga-descricao" value="" size="22" required>
@@ -155,9 +158,9 @@ Licence URI: http://www.os-templates.com/template-terms
             <textarea name="comment" id="vaga-preRequisitos" cols="25" rows="10"></textarea>
           </div>
           <div>
-            <input type="submit" name="submit" value="Editar">
+            <input type="submit" name="submit" value="Salvar edição">
             &nbsp;
-            <input type="reset" name="reset" value="Limpar">
+            <input type="reset" name="reset" value="Limpar edição">
           </div>
         </form>
       </div>

@@ -24,12 +24,14 @@ Licence URI: http://www.os-templates.com/template-terms
     //   window.alert('Id passado inválido');
     //   redirectHome();
     // }
-     $('#btn-editar').on('click', (event) => {
-      window.location.replace(`editar-vaga-estagio.html?id=${Number(vagaEstagio.id)}`);
-
-     };
+    $(() => {
+      $('#form-alter-vaga').on('submit', (event) => {
+        window.location.replace(`editar-vaga-estagio.html?id=${Number(vagaEstagioId)}`);
+      });
+     });
       $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((vagaEstagio) => {
       $(() => {
+        $('#vaga-id').text(vagaEstagio.id);
         $('#vaga-descricao').text(vagaEstagio.descricao);
         $('#vaga-concedente').text(vagaEstagio.concedente);
         $('#vaga-areaAtuacao').text(vagaEstagio.areaAtuacao);
@@ -96,7 +98,7 @@ Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
     <div class="content">
       <div id="comments">
-        <form id="form-add-vaga">
+        <form id="form-alter-vaga">
           <div class="one_third first">
             <label for="vaga-descricao">Descrição: </label>
             <p id="vaga-descricao"></p>
