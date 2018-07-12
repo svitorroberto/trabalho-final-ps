@@ -84,4 +84,17 @@ public class VagaEstagioPresenter {
 
         return eventoEncontrado;
     }
+
+    public VagaEstagio delete(VagaEstagio vagaEstagio) {
+        final User usuarioAtual = getUser();
+        logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
+            "iniciou a exclusão de Vaga de Estagio:\n\n" + vagaEstagio.toString());
+
+        final VagaEstagio eventoSalvo = vagaEstagioDao.save(vagaEstagio);
+
+        logger.info("Usuário com nome `" + usuarioAtual.getUsername() + "`, " +
+            "concluiu a exclusão de Vaga de Estagio:\n\n" + vagaEstagio.toString());
+
+        return eventoSalvo;
+    }
 }

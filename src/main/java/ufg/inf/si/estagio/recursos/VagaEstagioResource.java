@@ -4,6 +4,7 @@ import ufg.inf.si.estagio.model.entidades.VagaEstagio;
 import ufg.inf.si.estagio.presenter.VagaEstagioPresenter;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -36,4 +37,12 @@ public class VagaEstagioResource {
     public VagaEstagio consultarPorId(@PathParam("id") final Long id) {
         return vagaEstagioPresenter.consultarPorId(id);
     }
+
+    /*@DELETE
+    @Path("/{id}")
+    public Response apagarPorId(@PathParam("id") final Long id) {
+        vagaEstagioPresenter.apagarPorId(id);
+        return Response.delete(id);
+    }*/
+
 }
