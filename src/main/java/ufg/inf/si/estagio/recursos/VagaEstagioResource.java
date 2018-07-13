@@ -14,6 +14,7 @@ import java.util.HashMap;
 @Produces(MediaType.APPLICATION_JSON)
 public class VagaEstagioResource {
 
+    //DESIGN PATTERN: SINGLETON
     private final VagaEstagioPresenter vagaEstagioPresenter;
 
     @Inject
@@ -41,4 +42,11 @@ public class VagaEstagioResource {
     public HashMap<String, Object> editarVaga(final VagaEstagio evento) {
         return vagaEstagioPresenter.editarVaga(evento);
     }
+
+    @POST
+    @Path("/delete")
+    public HashMap<String, Object> apagarPorId(final Long id) {
+        return vagaEstagioPresenter.apagarVaga(id);
+    }
+
 }

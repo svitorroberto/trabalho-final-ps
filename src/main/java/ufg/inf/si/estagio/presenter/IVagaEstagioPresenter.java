@@ -13,4 +13,6 @@ public interface IVagaEstagioPresenter {
     HashMap<String, Object> fazerConsultaPorId(final Long id);
 
     HashMap<String, Object> editarVaga(final VagaEstagio vagaEstagio);
+
+    HashMap<String, Object> apagarVaga(final Long id);
 }
