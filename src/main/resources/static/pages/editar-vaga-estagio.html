@@ -17,38 +17,64 @@ Licence URI: http://www.os-templates.com/template-terms
   <script>
     const executarAcao = (acao) => window.location.replace(acao);
 
+    $(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const vagaEstagioId = Number(searchParams.get('id'));
 
-    // if (!vagaEstagioId) {
-    //   window.alert('Id passado inválido');
-    //   redirectHome();
-    // }
-    $(() => {
-      $('#form-alter-vaga').on('submit', (event) => {
-        window.location.replace(`editar-vaga-estagio.html?id=${Number(vagaEstagioId)}`);
-      });
-     });
-
-    $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((resposta) => {
-      const vagaEstagio = resposta.vagaEstagio
-      const acao = resposta.acao
+     if (!vagaEstagioId) {
+       window.alert('Id passado inválido');
+       redirectHome();
+     }
+      $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((resposta) => {
+        const vagaEstagio = resposta.vagaEstagio
+        const acao = resposta.acao
 
       $(() => {
-        $('#vaga-id').text(vagaEstagio.id);
-        $('#vaga-descricao').text(vagaEstagio.descricao);
-        $('#vaga-concedente').text(vagaEstagio.concedente);
-        $('#vaga-areaAtuacao').text(vagaEstagio.areaAtuacao);
-        $('#vaga-curso').text(vagaEstagio.curso);
-        $('#vaga-cargaHoraria').text(vagaEstagio.cargaHoraria);
-        $('#vaga-tipoRemuneracao').text(vagaEstagio.tipoRemuneracao);
-        $('#vaga-localEnvioCurriculo').text(vagaEstagio.localEnvioCurriculo);
+        $('#vaga-descricao').val(vagaEstagio.descricao);
+        $('#vaga-id').val(vagaEstagio.id);
+        $('#vaga-concedente').val(vagaEstagio.concedente);
+        $('#vaga-areaAtuacao').val(vagaEstagio.areaAtuacao);
+        $('#vaga-curso').val(vagaEstagio.curso);
+        $('#vaga-cargaHoraria').val(vagaEstagio.cargaHoraria);
+        $('#vaga-tipoRemuneracao').val(vagaEstagio.tipoRemuneracao);
+        $('#vaga-localEnvioCurriculo').val(vagaEstagio.localEnvioCurriculo);
         $('#vaga-preRequisitos').text(vagaEstagio.preRequisitos)
       });
     }).catch((err) => {
       console.error(err);
       // window.alert('Vaga de estágio com identificador passado não existe');
       // redirectHome();
+    });
+      $('#form-add-vaga').on('submit', (event) => {
+        event.preventDefault();
+
+        const vagaEstagio = {
+          descricao          : $('#vaga-descricao').val(),
+          id                 : $('#vaga-id').val(),
+          concedente         : $('#vaga-concedente').val(),
+          areaAtuacao        : $('#vaga-areaAtuacao').val(),
+          curso              : $('#vaga-curso').val(),
+          cargaHoraria       : $('#vaga-cargaHoraria').val(),
+          tipoRemuneracao    : $('#vaga-tipoRemuneracao').val(),
+          localEnvioCurriculo: $('#vaga-localEnvioCurriculo').val(),
+          preRequisitos      : $('#vaga-preRequisitos').val()
+        };
+
+
+
+        $.post({
+          url        : '../api/vagasEstagio/editar',
+          data       : JSON.stringify(vagaEstagio),
+          contentType: 'application/json; charset=UTF-8',
+        }).then((resposta) => {
+          const vagaEstagio = resposta.vagaEstagio
+          const acao = resposta.acao
+          window.alert('Vaga de estágio alterada com sucesso!');
+          executarAcao(acao)
+
+        window.location.replace(`detalhe-vaga-estagio.html?id=${Number(vagaEstagio.id)}`);
+    });
+      });
     });
   </script>
 
@@ -64,13 +90,13 @@ Licence URI: http://www.os-templates.com/template-terms
     <header id="header" class="hoc clear">
       <!-- ################################################################################################ -->
       <div id="logo" class="fl_left">
-        <h1><a href="../index.html">Centro de Estágios - UFG</a></h1>
+        <h1><a href="index.html">Centro de Estágios - UFG</a></h1>
       </div>
       <!-- ################################################################################################ -->
       <nav id="mainav" class="fl_right">
         <ul class="clear">
           <li><a href="../index.html">Início</a></li>
-          <li><a href="nova-vaga-estagio.html">Cadastrar Vaga</a></li>
+          <li class="active"><a href="nova-vaga-estagio.html">Editar Vaga</a></li>
           <li><a href="listar-vaga-estagio.html">Visualizar Vagas</a></li>
         </ul>
       </nav>
@@ -83,11 +109,12 @@ Licence URI: http://www.os-templates.com/template-terms
   <section id="breadcrumb" class="hoc clear">
     <!-- ################################################################################################ -->
     <ul>
-      <li><a href="../index.html">Ínicio</a></li>
-      <li><a href="#">Detalhes vaga de estágio</a></li>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Administrador</a></li>
+      <li><a href="#">Editar vaga de estágio</a></li>
     </ul>
     <!-- ################################################################################################ -->
-    <h6 class="heading">DETALHES VAGA DE ESTÁGIO</h6>
+    <h6 class="heading">EDITAR VAGA DE ESTÁGIO</h6>
     <!-- ################################################################################################ -->
   </section>
   <!-- ################################################################################################ -->
@@ -102,43 +129,47 @@ Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
     <div class="content">
       <div id="comments">
-        <form id="form-alter-vaga">
-          <div class="one_third first">
-            <label for="vaga-descricao">Descrição: </label>
-            <p id="vaga-descricao"></p>
+        <h2>Nova Vaga</h2>
+        <form id="form-add-vaga">
+          <div class="hidden">
+            <input type="text" name="name" id="vaga-id" value="" size="22" required>
           </div>
           <div class="one_third first">
-            <label for="vaga-concedente">Concedente: </label>
-            <p id="vaga-concedente" aria-disabled="true"></p>
+            <label for="vaga-descricao">Descrição <span>*</span></label>
+            <input type="text" name="name" id="vaga-descricao" value="" size="22" required>
           </div>
           <div class="one_third first">
-            <label for="vaga-areaAtuacao">Área de atuação: </label>
-            <p id="vaga-areaAtuacao"></p>
+            <label for="vaga-concedente">Concedente <span>*</span></label>
+            <input type="text" name="name" id="vaga-concedente" value="" size="22" required>
           </div>
           <div class="one_third first">
-            <label for="vaga-curso">Curso: </label>
-            <p id="vaga-curso"></p>
+            <label for="vaga-areaAtuacao">Área de atuação <span>*</span></label>
+            <input type="text" name="name" id="vaga-areaAtuacao" value="" size="22" required>
           </div>
           <div class="one_third first">
-            <label for="vaga-cargaHoraria">Carga horária(h): </label>
-            <p id="vaga-cargaHoraria"></p>
+            <label for="vaga-curso">Curso <span>*</span></label>
+            <input type="text" name="name" id="vaga-curso" value="" size="22" required>
           </div>
           <div class="one_third first">
-            <label for="vaga-tipoRemuneracao">Tipo remuneração: </label>
-            <p id="vaga-tipoRemuneracao"></p>
+            <label for="vaga-cargaHoraria">Carga horária(h) <span>*</span></label>
+            <input type="number" name="name" id="vaga-cargaHoraria" value="" size="22" required>
           </div>
           <div class="one_third first">
-            <label for="vaga-localEnvioCurriculo">Local de envio do currículo: </label>
-            <p id="vaga-localEnvioCurriculo"></p>
+            <label for="vaga-tipoRemuneracao">Tipo remuneração <span>*</span></label>
+            <input type="text" name="name" id="vaga-tipoRemuneracao" value="" size="22" required>
+          </div>
+          <div class="one_third first">
+            <label for="vaga-localEnvioCurriculo">Local de envio do currículo <span>*</span></label>
+            <input type="text" name="name" id="vaga-localEnvioCurriculo" value="" size="22" required>
           </div>
           <div class="block clear">
-            <label for="vaga-preRequisitos">Pré-requisitos: </label>
-            <p id="vaga-preRequisitos"></p>
+            <label for="vaga-preRequisitos">Pré-requisitos</label>
+            <textarea name="comment" id="vaga-preRequisitos" cols="25" rows="10"></textarea>
           </div>
           <div>
-            <input type="submit" id="btn-editar" value="Editar">
+            <input type="submit" name="submit" value="Salvar edição">
             &nbsp;
-            <input type="submit" id="btn-apagar" value="Apagar">
+            <input type="reset" name="reset" value="Limpar edição">
           </div>
         </form>
       </div>
