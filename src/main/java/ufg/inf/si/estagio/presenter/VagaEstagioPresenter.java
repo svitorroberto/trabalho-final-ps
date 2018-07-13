@@ -131,16 +131,14 @@ public class VagaEstagioPresenter implements IVagaEstagioPresenter {
         return eventoSalvo;
     }
 
-    public VagaEstagio delete(VagaEstagio vagaEstagio) {
+    public void apagarPorId(final Long id) {
         final User usuarioAtual = getUser();
         logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
-            "iniciou a exclusão de Vaga de Estagio:\n\n" + vagaEstagio.toString());
+            "iniciou a exclusão de Vaga de Estagio:\n\n" + id);
 
-        final VagaEstagio eventoSalvo = vagaEstagioDao.save(vagaEstagio);
+        vagaEstagioDao.delete(id);
 
         logger.info("Usuário com nome `" + usuarioAtual.getUsername() + "`, " +
-            "concluiu a exclusão de Vaga de Estagio:\n\n" + vagaEstagio.toString());
-
-        return eventoSalvo;
+            "concluiu a exclusão de Vaga de Estagio:\n\n" + id);
     }
 }
