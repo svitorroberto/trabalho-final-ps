@@ -15,6 +15,8 @@ Licence URI: http://www.os-templates.com/template-terms
   <script src="../layout/scripts/jquery-3.2.1.js"></script>
 
   <script>
+    const executarAcao = (acao) => window.location.replace(acao);
+
     $(() => {
       $('#form-add-vaga').on('submit', (event) => {
         event.preventDefault();
@@ -34,9 +36,11 @@ Licence URI: http://www.os-templates.com/template-terms
           url        : '../api/vagasEstagio',
           data       : JSON.stringify(vagaEstagio),
           contentType: 'application/json; charset=UTF-8',
-        }).then((vagaEstagio) => {
+        }).then((resposta) => {
+          const vagaEstagio = resposta.vagaEstagio
+          const acao = resposta.acao
           window.alert('Vaga de estágio criada com sucesso!');
-          window.location.replace(`detalhe-vaga-estagio.html?id=${Number(vagaEstagio.id)}`);
+          executarAcao(acao)
         });
       });
     });

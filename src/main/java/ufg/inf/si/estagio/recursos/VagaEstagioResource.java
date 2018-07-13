@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
+import java.util.HashMap;
 
 @Named
 @Path("/vagasEstagio")
@@ -22,23 +22,23 @@ public class VagaEstagioResource {
     }
 
     @GET
-    public List<VagaEstagio> consultaTodos() {
-        return vagaEstagioPresenter.consultarTodos();
+    public HashMap<String, Object> consultaTodos() {
+        return vagaEstagioPresenter.fazerConsulta();
     }
 
     @POST
-    public VagaEstagio criarNovo(final VagaEstagio evento) {
-        return vagaEstagioPresenter.salvar(evento);
+    public HashMap<String, Object> criarNovo(final VagaEstagio evento) {
+        return vagaEstagioPresenter.salvarVaga(evento);
     }
 
     @GET
     @Path("/{id}")
-    public VagaEstagio consultarPorId(@PathParam("id") final Long id) {
-        return vagaEstagioPresenter.consultarPorId(id);
+    public HashMap<String, Object> consultarPorId(@PathParam("id") final Long id) {
+        return vagaEstagioPresenter.fazerConsultaPorId(id);
     }
     @POST
     @Path("/editar")
-    public VagaEstagio editarVaga(final VagaEstagio evento) {
-        return vagaEstagioPresenter.editar(evento);
+    public HashMap<String, Object> editarVaga(final VagaEstagio evento) {
+        return vagaEstagioPresenter.editarVaga(evento);
     }
 }
