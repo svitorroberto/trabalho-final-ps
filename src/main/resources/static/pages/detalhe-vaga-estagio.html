@@ -15,7 +15,7 @@ Licence URI: http://www.os-templates.com/template-terms
   <script src="../layout/scripts/jquery-3.2.1.js"></script>
 
   <script>
-    const redirectHome = () => window.location.replace('../index.html');
+    const executarAcao = (acao) => window.location.replace(acao);
 
     const searchParams = new URLSearchParams(window.location.search);
     const vagaEstagioId = Number(searchParams.get('id'));
@@ -29,7 +29,11 @@ Licence URI: http://www.os-templates.com/template-terms
         window.location.replace(`editar-vaga-estagio.html?id=${Number(vagaEstagioId)}`);
       });
      });
-      $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((vagaEstagio) => {
+
+    $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((resposta) => {
+      const vagaEstagio = resposta.vagaEstagio
+      const acao = resposta.acao
+
       $(() => {
         $('#vaga-id').text(vagaEstagio.id);
         $('#vaga-descricao').text(vagaEstagio.descricao);

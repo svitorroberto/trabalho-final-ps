@@ -11,10 +11,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Named
-public class VagaEstagioPresenter {
+public class VagaEstagioPresenter implements IVagaEstagioPresenter {
 
     private static final Logger logger = LoggerFactory.getLogger(VagaEstagioPresenter.class);
 
@@ -35,7 +36,39 @@ public class VagaEstagioPresenter {
         }
     }
 
-    public List<VagaEstagio> consultarTodos() {
+    public HashMap<String, Object> fazerConsulta() {
+        HashMap<String, Object> resposta = new HashMap<>();
+        resposta.put("vagaEstagio", consultarTodos());
+        resposta.put("acao", "ficaNaPagina");
+
+        return resposta;
+    }
+
+    public HashMap<String, Object> salvarVaga(final VagaEstagio vagaEstagio) {
+        HashMap<String, Object> resposta = new HashMap<>();
+        resposta.put("vagaEstagio", salvar(vagaEstagio));
+        resposta.put("acao", "detalhe-vaga-estagio.html?id=" + vagaEstagio.getId());
+
+        return resposta;
+    }
+
+    public HashMap<String, Object> fazerConsultaPorId(final Long id) {
+        HashMap<String, Object> resposta = new HashMap<>();
+        resposta.put("vagaEstagio", consultarPorId(id));
+        resposta.put("acao", "ficaNaPagina");
+
+        return resposta;
+    }
+
+    public HashMap<String, Object> editarVaga(final VagaEstagio vagaEstagio) {
+        HashMap<String, Object> resposta = new HashMap<>();
+        resposta.put("vagaEstagio", editar(vagaEstagio));
+        resposta.put("acao", "detalhe-vaga-estagio.html?id=" + vagaEstagio.getId());
+
+        return resposta;
+    }
+
+    private List<VagaEstagio> consultarTodos() {
         final User usuarioAtual = getUser();
         logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
             "iniciou uma consulta de todas Vagas de Estagios do sistema");
@@ -52,7 +85,7 @@ public class VagaEstagioPresenter {
         return lista;
     }
 
-    public VagaEstagio salvar(VagaEstagio vagaEstagio) {
+    private VagaEstagio salvar(final VagaEstagio vagaEstagio) {
         final User usuarioAtual = getUser();
         logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
             "iniciou a criação da Vagas de Estagio:\n\n" + vagaEstagio.toString());
@@ -65,7 +98,7 @@ public class VagaEstagioPresenter {
         return eventoSalvo;
     }
 
-    public VagaEstagio consultarPorId(final Long id) {
+    private VagaEstagio consultarPorId(final Long id) {
         final User usuarioAtual = getUser();
         logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
             "iniciou uma consulta de Vagas de Estagio com identificador: " + id);
@@ -84,7 +117,8 @@ public class VagaEstagioPresenter {
 
         return eventoEncontrado;
     }
-    public VagaEstagio editar(VagaEstagio vagaEstagio) {
+
+    private VagaEstagio editar(final VagaEstagio vagaEstagio) {
         final User usuarioAtual = getUser();
         logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
             "iniciou a edição de Vaga de Estagio:\n\n" + vagaEstagio.toString());

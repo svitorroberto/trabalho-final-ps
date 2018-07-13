@@ -15,6 +15,8 @@ Licence URI: http://www.os-templates.com/template-terms
   <script src="../layout/scripts/jquery-3.2.1.js"></script>
 
   <script>
+    const executarAcao = (acao) => window.location.replace(acao);
+
     $(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const vagaEstagioId = Number(searchParams.get('id'));
@@ -23,7 +25,10 @@ Licence URI: http://www.os-templates.com/template-terms
        window.alert('Id passado inválido');
        redirectHome();
      }
-    $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((vagaEstagio) => {
+      $.getJSON(`../api/vagasEstagio/${vagaEstagioId}`).then((resposta) => {
+        const vagaEstagio = resposta.vagaEstagio
+        const acao = resposta.acao
+
       $(() => {
         $('#vaga-descricao').val(vagaEstagio.descricao);
         $('#vaga-id').val(vagaEstagio.id);
@@ -61,8 +66,12 @@ Licence URI: http://www.os-templates.com/template-terms
           url        : '../api/vagasEstagio/editar',
           data       : JSON.stringify(vagaEstagio),
           contentType: 'application/json; charset=UTF-8',
-        }).then(() => {
+        }).then((resposta) => {
+          const vagaEstagio = resposta.vagaEstagio
+          const acao = resposta.acao
           window.alert('Vaga de estágio alterada com sucesso!');
+          executarAcao(acao)
+
         window.location.replace(`detalhe-vaga-estagio.html?id=${Number(vagaEstagio.id)}`);
     });
       });

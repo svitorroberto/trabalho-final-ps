@@ -15,9 +15,14 @@ Licence URI: http://www.os-templates.com/template-terms
   <script src="../layout/scripts/jquery-3.2.1.js"></script>
 
   <script>
+    const executarAcao = (acao) => window.location.replace(acao);
+
     $(() => {
 
-      $.getJSON('../api/vagasEstagio').then((vagasEstagio) => {
+      $.getJSON('../api/vagasEstagio').then((resposta) => {
+        const vagasEstagio = resposta.vagaEstagio
+        const acao = resposta.acao
+
         const vagasDeEstagio = vagasEstagio.map(vagaEstagio => ({
           id           : vagaEstagio.id,
           descricao    : vagaEstagio.descricao,
