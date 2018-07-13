@@ -84,4 +84,16 @@ public class VagaEstagioPresenter {
 
         return eventoEncontrado;
     }
+    public VagaEstagio editar(VagaEstagio vagaEstagio) {
+        final User usuarioAtual = getUser();
+        logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
+            "iniciou a edição de Vaga de Estagio:\n\n" + vagaEstagio.toString());
+
+        final VagaEstagio eventoSalvo = vagaEstagioDao.save(vagaEstagio);
+
+        logger.info("Usuário com nome `" + usuarioAtual.getUsername() + "`, " +
+            "concluiu a edição de Vaga de Estagio:\n\n" + vagaEstagio.toString());
+
+        return eventoSalvo;
+    }
 }

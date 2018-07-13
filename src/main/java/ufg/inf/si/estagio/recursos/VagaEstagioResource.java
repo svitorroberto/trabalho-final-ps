@@ -36,4 +36,9 @@ public class VagaEstagioResource {
     public VagaEstagio consultarPorId(@PathParam("id") final Long id) {
         return vagaEstagioPresenter.consultarPorId(id);
     }
+    @POST
+    @Path("/editar")
+    public VagaEstagio editarVaga(final VagaEstagio evento) {
+        return vagaEstagioPresenter.editar(evento);
+    }
 }
