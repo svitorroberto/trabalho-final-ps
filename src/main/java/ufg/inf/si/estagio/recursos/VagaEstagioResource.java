@@ -4,7 +4,6 @@ import ufg.inf.si.estagio.model.entidades.VagaEstagio;
 import ufg.inf.si.estagio.presenter.VagaEstagioPresenter;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,6 +14,7 @@ import java.util.HashMap;
 @Produces(MediaType.APPLICATION_JSON)
 public class VagaEstagioResource {
 
+    //DESIGN PATTERN: SINGLETON
     private final VagaEstagioPresenter vagaEstagioPresenter;
 
     @Inject
@@ -43,11 +43,10 @@ public class VagaEstagioResource {
         return vagaEstagioPresenter.editarVaga(evento);
     }
 
-    @DELETE
-    @Path("/{id}")
-    public Response apagarPorId(@PathParam("id") final Long id) {
-        vagaEstagioPresenter.apagarPorId(id);
-        return Response.ok().build();
+    @POST
+    @Path("/delete")
+    public HashMap<String, Object> apagarPorId(final Long id) {
+        return vagaEstagioPresenter.apagarVaga(id);
     }
 
 }

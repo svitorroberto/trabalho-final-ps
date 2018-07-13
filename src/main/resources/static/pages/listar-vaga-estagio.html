@@ -23,6 +23,7 @@ Licence URI: http://www.os-templates.com/template-terms
         const vagasEstagio = resposta.vagaEstagio
         const acao = resposta.acao
 
+        //DESIGN PATTERN: BUILDER
         const vagasDeEstagio = vagasEstagio.map(vagaEstagio => ({
           id           : vagaEstagio.id,
           descricao    : vagaEstagio.descricao,

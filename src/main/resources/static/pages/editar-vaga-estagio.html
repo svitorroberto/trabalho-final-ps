@@ -48,6 +48,7 @@ Licence URI: http://www.os-templates.com/template-terms
       $('#form-add-vaga').on('submit', (event) => {
         event.preventDefault();
 
+        //DESIGN PATTERN: BUILDER
         const vagaEstagio = {
           descricao          : $('#vaga-descricao').val(),
           id                 : $('#vaga-id').val(),

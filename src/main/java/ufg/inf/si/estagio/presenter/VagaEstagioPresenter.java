@@ -19,6 +19,7 @@ public class VagaEstagioPresenter implements IVagaEstagioPresenter {
 
     private static final Logger logger = LoggerFactory.getLogger(VagaEstagioPresenter.class);
 
+    //DESIGN PATTERN: SINGLETON
     private final VagaEstagioDao vagaEstagioDao;
 
     @Inject
@@ -64,6 +65,14 @@ public class VagaEstagioPresenter implements IVagaEstagioPresenter {
         HashMap<String, Object> resposta = new HashMap<>();
         resposta.put("vagaEstagio", editar(vagaEstagio));
         resposta.put("acao", "detalhe-vaga-estagio.html?id=" + vagaEstagio.getId());
+
+        return resposta;
+    }
+
+    public HashMap<String, Object> apagarVaga(final Long id) {
+        HashMap<String, Object> resposta = new HashMap<>();
+        apagarPorId(id);
+        resposta.put("acao", "listar-vaga-estagio.html");
 
         return resposta;
     }
@@ -131,7 +140,7 @@ public class VagaEstagioPresenter implements IVagaEstagioPresenter {
         return eventoSalvo;
     }
 
-    public void apagarPorId(final Long id) {
+    private void apagarPorId(final Long id) {
         final User usuarioAtual = getUser();
         logger.trace("Usuário com nome: `" + usuarioAtual.getUsername() + "`, " +
             "iniciou a exclusão de Vaga de Estagio:\n\n" + id);

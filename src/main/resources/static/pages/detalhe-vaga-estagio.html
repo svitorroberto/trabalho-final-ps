@@ -26,7 +26,22 @@ Licence URI: http://www.os-templates.com/template-terms
     // }
     $(() => {
       $('#form-alter-vaga').on('submit', (event) => {
+        event.preventDefault();
         window.location.replace(`editar-vaga-estagio.html?id=${Number(vagaEstagioId)}`);
+      });
+
+      $('#btn-apagar').on('click', (event) => {
+        event.preventDefault();
+
+        $.post({
+          url        : '../api/vagasEstagio/delete',
+          data       : JSON.stringify(vagaEstagioId),
+          contentType: 'application/json; charset=UTF-8',
+        }).then((resposta) => {
+          const acao = resposta.acao
+          window.alert('Vaga de estágio apagada com sucesso!');
+          executarAcao(acao)
+        });
       });
      });
 

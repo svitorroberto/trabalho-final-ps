@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class HealthCheckResource {
 
+    //DESIGN PATTERN: SINGLETON
     private final BuildProperties buildProperties;
 
     @Inject
