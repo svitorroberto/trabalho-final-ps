@@ -38,11 +38,11 @@ public class VagaEstagioResource {
         return vagaEstagioPresenter.consultarPorId(id);
     }
 
-    /*@DELETE
+    @DELETE
     @Path("/{id}")
     public Response apagarPorId(@PathParam("id") final Long id) {
         vagaEstagioPresenter.apagarPorId(id);
-        return Response.delete(id);
-    }*/
+        return Response.ok().build();
+    }
 
 }
